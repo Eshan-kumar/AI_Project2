@@ -1,0 +1,11 @@
+{
+  "name": "ai-search-planning-playground",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI Search & Planning Playground (Python Backend + React JSX Frontend)",
+  "scripts": {
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "server": "python main.py 8000"
+  }
+}
