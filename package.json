@@ -6,6 +6,6 @@
   "scripts": {
     "dev": "npm --prefix frontend run dev",
     "build": "npm --prefix frontend run build",
-    "server": "python main.py 8000"
+    "server": "py main.py 8000"
   }
 }

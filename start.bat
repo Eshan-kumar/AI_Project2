@@ -3,7 +3,7 @@ echo Starting AI Search & Planning Playground...
 echo.
 
 echo Starting Python API Backend Server on http://localhost:8000...
-start /b "" python main.py 8000
+start /b "" py main.py 8000
 
 timeout /t 2 >nul
 
