@@ -31,12 +31,11 @@ class APIHandler(BaseHTTPRequestHandler):
 
     def _get_actual_path(self):
         parsed_url = urlparse(self.path)
-        actual_path = parsed_url.path
-        if actual_path == '/api/index.py':
-            qs = parse_qs(parsed_url.query)
-            if 'path' in qs:
-                return '/api/' + qs['path'][0]
-        return actual_path
+        # Vercel preserves the original path in these headers during a rewrite
+        invoke_path = self.headers.get('x-invoke-path') or self.headers.get('x-now-route-matches')
+        if invoke_path:
+            return invoke_path
+        return parsed_url.path
 
     def do_GET(self):
         actual_path = self._get_actual_path()
@@ -65,7 +64,7 @@ class APIHandler(BaseHTTPRequestHandler):
             }
             self._send_response(presets)
         else:
-            self._send_response({"error": "Endpoint not found"}, 404)
+            self._send_response({"error": f"Endpoint not found. actual_path: {actual_path}, self.path: {self.path}"}, 404)
 
     def do_POST(self):
         actual_path = self._get_actual_path()
@@ -133,7 +132,7 @@ class APIHandler(BaseHTTPRequestHandler):
             self._send_response({"results": results})
 
         else:
-            self._send_response({"error": "Unknown API route"}, 404)
+            self._send_response({"error": f"Unknown API route. actual_path: {actual_path}, self.path: {self.path}"}, 404)
 
 def run_server(port: int = 8000):
     server_address = ('', port)
