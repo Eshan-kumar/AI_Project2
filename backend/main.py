@@ -29,9 +29,18 @@ class APIHandler(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Headers', 'Content-Type')
         self.end_headers()
 
-    def do_GET(self):
+    def _get_actual_path(self):
         parsed_url = urlparse(self.path)
-        if parsed_url.path == '/api/presets':
+        actual_path = parsed_url.path
+        if actual_path == '/api/index.py':
+            qs = parse_qs(parsed_url.query)
+            if 'path' in qs:
+                return '/api/' + qs['path'][0]
+        return actual_path
+
+    def do_GET(self):
+        actual_path = self._get_actual_path()
+        if actual_path == '/api/presets':
             presets = {
                 "maze": {
                     "default_10x10": DEFAULT_MAZE_10X10,
@@ -59,7 +68,7 @@ class APIHandler(BaseHTTPRequestHandler):
             self._send_response({"error": "Endpoint not found"}, 404)
 
     def do_POST(self):
-        parsed_url = urlparse(self.path)
+        actual_path = self._get_actual_path()
         content_length = int(self.headers.get('Content-Length', 0))
         post_data = self.rfile.read(content_length) if content_length > 0 else b'{}'
 
@@ -68,7 +77,7 @@ class APIHandler(BaseHTTPRequestHandler):
         except Exception:
             body = {}
 
-        if parsed_url.path == '/api/solve/maze':
+        if actual_path == '/api/solve/maze':
             grid = body.get('grid', DEFAULT_MAZE_10X10)
             start = tuple(body.get('start', [0, 0]))
             goal = tuple(body.get('goal', [9, 9]))
@@ -76,13 +85,13 @@ class APIHandler(BaseHTTPRequestHandler):
             res = solve_maze(grid, start, goal, algorithm)
             self._send_response(res.to_dict())
 
-        elif parsed_url.path == '/api/solve/puzzle':
+        elif actual_path == '/api/solve/puzzle':
             start_state = tuple(body.get('start_state', [1, 2, 3, 4, 0, 5, 7, 8, 6]))
             algorithm = body.get('algorithm', 'A* (Manhattan)')
             res = solve_puzzle(start_state, algorithm)
             self._send_response(res.to_dict())
 
-        elif parsed_url.path == '/api/solve/nqueens':
+        elif actual_path == '/api/solve/nqueens':
             n = body.get('n', 8)
             algorithm = body.get('algorithm', 'Simulated Annealing')
             initial_board = body.get('initial_board', None)
@@ -90,14 +99,14 @@ class APIHandler(BaseHTTPRequestHandler):
             res = solve_nqueens(n=n, algorithm=algorithm, initial_board=initial_board, seed=seed)
             self._send_response(res.to_dict())
 
-        elif parsed_url.path == '/api/solve/blocks':
+        elif actual_path == '/api/solve/blocks':
             start_stacks = body.get('start_stacks', None)
             goal_stacks = body.get('goal_stacks', None)
             algorithm = body.get('algorithm', 'State-Space Planner (BFS)')
             res = plan_blocks(start_stacks, goal_stacks, algorithm)
             self._send_response(res.to_dict())
 
-        elif parsed_url.path == '/api/benchmark/all':
+        elif actual_path == '/api/benchmark/all':
             # Runs all algorithm combinations on default problem configurations
             results = []
 
