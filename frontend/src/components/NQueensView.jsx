@@ -188,16 +188,7 @@ export default function NQueensView({ onLogResult }) {
             </div>
           </div>
 
-          {currentFrame?.temp !== undefined && (
-            <div className="metric-card" style={{ borderColor: 'rgba(245, 158, 11, 0.4)' }}>
-              <span className="metric-label" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <Flame size={14} color="var(--accent-amber)" /> SA Temperature (T)
-              </span>
-              <span className="metric-value" style={{ color: 'var(--accent-amber)' }}>
-                {currentFrame.temp}
-              </span>
-            </div>
-          )}
+
 
           <div style={{ background: 'rgba(15, 23, 42, 0.6)', padding: '0.8rem', borderRadius: '10px', fontSize: '0.8rem' }}>
             <div style={{ fontWeight: '600', marginBottom: '0.4rem', color: 'var(--accent-cyan)' }}>Syllabus Highlight:</div>
