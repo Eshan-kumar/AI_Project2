@@ -4,6 +4,7 @@
   "private": true,
   "description": "AI Search & Planning Playground (Python Backend + React JSX Frontend)",
   "scripts": {
+    "postinstall": "npm --prefix frontend install",
     "dev": "npm --prefix frontend run dev",
     "build": "npm --prefix frontend run build",
     "backend": "cd backend && py main.py 8000"
