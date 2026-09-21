@@ -139,7 +139,7 @@ export default function PuzzleView({ onLogResult }) {
         isLoading={isLoading}
       />
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '1.5rem', marginTop: '1.5rem' }}>
+      <div className="view-layout">
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
           <div className="puzzle-board">
             {activeBoard.map((val, idx) => (

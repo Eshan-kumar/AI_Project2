@@ -512,3 +512,65 @@ body {
   from { transform: scale(0.6); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+
+/* Responsive View Layout */
+.view-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 992px) {
+  .view-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  .header-glass {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .tab-group {
+    justify-content: center;
+  }
+  
+  .controls-bar {
+    justify-content: center;
+  }
+
+  .speed-control {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 480px) {
+  .maze-grid {
+    transform: scale(0.85);
+    transform-origin: left center;
+  }
+
+  .puzzle-board {
+    transform: scale(0.85);
+    transform-origin: center;
+  }
+
+  .chessboard {
+    transform: scale(0.8);
+    transform-origin: center;
+  }
+  
+  .blocks-stage {
+    gap: 1rem;
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+}

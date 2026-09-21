@@ -130,7 +130,7 @@ export default function NQueensView({ onLogResult }) {
         isLoading={isLoading}
       />
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '1.5rem', marginTop: '1.5rem' }}>
+      <div className="view-layout">
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
           <div className="chessboard">
             {Array.from({ length: 8 }).map((_, r) =>

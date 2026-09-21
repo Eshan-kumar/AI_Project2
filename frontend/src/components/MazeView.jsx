@@ -145,7 +145,7 @@ export default function MazeView({ onLogResult }) {
         isLoading={isLoading}
       />
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: '1.5rem', marginTop: '1.5rem' }}>
+      <div className="view-layout">
         <div className="maze-grid-container">
           <div className="maze-grid">
             {grid.map((row, r) =>
