@@ -535,7 +535,8 @@ body {
   
   .header-glass {
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
+    text-align: center;
   }
   
   .tab-group {
@@ -545,32 +546,100 @@ body {
   .controls-bar {
     justify-content: center;
   }
+  
+  .button-group {
+    justify-content: center;
+  }
 
   .speed-control {
     width: 100%;
-    justify-content: space-between;
+    justify-content: center;
+    margin-top: 0.5rem;
   }
 }
 
 @media (max-width: 480px) {
-  .maze-grid {
-    transform: scale(0.85);
-    transform-origin: left center;
-  }
-
-  .puzzle-board {
-    transform: scale(0.85);
-    transform-origin: center;
-  }
-
-  .chessboard {
-    transform: scale(0.8);
-    transform-origin: center;
+  /* Global Tweaks */
+  .brand-title {
+    font-size: 1.25rem;
   }
   
+  .panel-title {
+    font-size: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .panel-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.8rem;
+  }
+  
+  .panel-header button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* 1. Maze Grid Resize */
+  .maze-grid {
+    grid-template-columns: repeat(10, 26px);
+    grid-template-rows: repeat(10, 26px);
+    gap: 2px;
+    padding: 6px;
+  }
+  .maze-cell {
+    width: 26px;
+    height: 26px;
+    font-size: 0.6rem;
+    border-radius: 4px;
+  }
+
+  /* 2. Puzzle Board Resize */
+  .puzzle-board {
+    grid-template-columns: repeat(3, 68px);
+    grid-template-rows: repeat(3, 68px);
+    padding: 10px;
+    gap: 6px;
+  }
+  .tile {
+    width: 68px;
+    height: 68px;
+    font-size: 1.4rem;
+    border-radius: 10px;
+  }
+
+  /* 3. Chessboard Resize */
+  .chessboard {
+    grid-template-columns: repeat(8, 32px);
+    grid-template-rows: repeat(8, 32px);
+  }
+  .square {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+  .queen-icon {
+    width: 20px !important;
+    height: 20px !important;
+  }
+  
+  /* 4. Blocks Resize */
   .blocks-stage {
-    gap: 1rem;
+    gap: 1.2rem;
     overflow-x: auto;
     justify-content: flex-start;
+    padding: 1rem;
+    height: 200px;
+  }
+  .block-item {
+    width: 45px;
+    height: 36px;
+    font-size: 1rem;
+  }
+  
+  /* Dashboard specific */
+  .leaderboard-table th, .leaderboard-table td {
+    padding: 0.5rem 0.4rem;
+    font-size: 0.75rem;
   }
 }
